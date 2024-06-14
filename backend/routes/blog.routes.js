@@ -3,7 +3,7 @@ const { getBulk, editBlog, deleteBlog, writeBlog, getBulkBlog } = require('../co
 const { protectRoute } = require('../middleware/protectRoute');
 const blogRouter = express.Router()
 blogRouter.post("/", protectRoute, writeBlog)
-blogRouter.get("/bulk", protectRoute, getBulkBlog)
+blogRouter.get("/bulk", getBulkBlog)
 blogRouter.patch("/edit/:id", protectRoute, editBlog)
 blogRouter.delete("/delete/:id", protectRoute, deleteBlog)
 module.exports = { blogRouter }

@@ -2,7 +2,7 @@ const { userModel } = require("../model/user.model");
 const jwt = require("jsonwebtoken");
 const protectRoute = async (req, res, next) => {
     try {
-        const token = req.cookies.jwt;
+        const token = req.cookies.jwt ?? req.header['Authorization'];
         const verify = jwt.verify(token, process.env.JWT_SECRET)
         if (!verify) {
             return res.status(401).json({ error: "Token Invalid Login!" })
@@ -18,4 +18,4 @@ const protectRoute = async (req, res, next) => {
         res.status(500).json({ error: "Error While Verifying Token" })
     }
 }
-module.exports = {protectRoute}
+module.exports = { protectRoute }
