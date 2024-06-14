@@ -24,7 +24,7 @@ const writeBlog = async (req, res) => {
         return res.status(500).json({ error: "Internal Server Error" })
     }
 }
-const getBulk = async (req, res) => {
+const getBulkBlog = async (req, res) => {
     try {
         const blogs = await blogModel.find().populate({ select: "username", path: "author" })
         return res.status(200).json({ blogs })
@@ -46,7 +46,7 @@ const deleteBlog = async (req, res) => {
             return res.status(401).json({ error: "You are not the author" })
         }
         let deletedBlog = await findBlog.deleteOne()
-         await userModel.updateOne(
+        await userModel.updateOne(
             { _id: userId },
             { $pull: { blogs: blogIdToDelete } }
         );
@@ -80,4 +80,4 @@ const editBlog = async (req, res) => {
         return res.status(500).json({ error: "Internal Server Error" })
     }
 }
-module.exports = { writeBlog, getBulk, editBlog, deleteBlog }
+module.exports = { writeBlog, getBulkBlog, editBlog, deleteBlog }
